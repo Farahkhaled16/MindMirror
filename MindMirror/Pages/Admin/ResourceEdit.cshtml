@@ -1,0 +1,53 @@
+﻿@page "{id:int?}"
+@model ResourceEditModel
+@{
+    var isNew = Model.Item.Id == 0;
+    ViewData["Title"] = isNew ? "New resource" : "Edit resource";
+}
+
+<section class="page narrow wide">
+    <a asp-page="ResourceList">&larr; Back</a>
+    <h1>@ViewData["Title"]</h1>
+
+    <form method="post" class="form-card">
+        <div asp-validation-summary="All" class="alert"></div>
+        <input type="hidden" asp-for="Item.Id" />
+
+        <label asp-for="Item.Name">Name</label>
+        <input asp-for="Item.Name" />
+
+        <label asp-for="Item.Type">Type</label>
+        <select asp-for="Item.Type" asp-items="@(new SelectList(ResourceTypes.All))"></select>
+
+        <label asp-for="Item.City">City</label>
+        <input asp-for="Item.City" />
+
+        <label asp-for="Item.Address">Address</label>
+        <input asp-for="Item.Address" />
+
+        <label asp-for="Item.Phone">Phone</label>
+        <input asp-for="Item.Phone" />
+
+        <label asp-for="Item.Website">Website (starts with https://)</label>
+        <input asp-for="Item.Website" />
+
+        <label asp-for="Item.Description">Description</label>
+        <textarea asp-for="Item.Description" rows="4"></textarea>
+        <label asp-for="Item.NameAr">Name (Arabic, optional)</label>
+        <input asp-for="Item.NameAr" dir="rtl" />
+
+        <label asp-for="Item.AddressAr">Address (Arabic, optional)</label>
+        <input asp-for="Item.AddressAr" dir="rtl" />
+
+        <label asp-for="Item.DescriptionAr">Description (Arabic, optional)</label>
+        <textarea asp-for="Item.DescriptionAr" rows="4" dir="rtl"></textarea>
+
+        <label asp-for="Item.VerifiedOn">Date you verified these details</label>
+        <input asp-for="Item.VerifiedOn" type="date" />
+
+        <label class="check"><input type="checkbox" asp-for="Item.Is24Hours" /> Open 24 hours</label>
+        <label class="check"><input type="checkbox" asp-for="Item.IsFree" /> Free service</label>
+
+        <button class="btn" type="submit">@(isNew ? "Add" : "Save changes")</button>
+    </form>
+</section>

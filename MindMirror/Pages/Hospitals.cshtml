@@ -1,0 +1,120 @@
+﻿@page
+@model HospitalsModel
+@inject IConfiguration Config
+@{
+    ViewData["Title"] = L.T("hosp.title");
+}
+
+<section class="page">
+    <h1>@L.T("hosp.title")</h1>
+    <p class="lead">@L.T("hosp.lead")</p>
+
+    <div class="crisis-note">
+        @L.T("hosp.danger") <strong>@Config["Crisis:Emergency"]</strong>
+    </div>
+
+    @if (Model.Hotlines.Count > 0)
+    {
+        <h2>@L.T("hosp.hotlines")</h2>
+        <div class="cards">
+            @foreach (var r in Model.Hotlines)
+            {
+                <div class="card">
+                    <span class="tag">@L.T("type.Hotline")</span>
+                    @if (r.Is24Hours)
+                    {
+                        <span class="tag">@L.T("common.24h")</span>
+                    }
+                    @if (r.IsFree)
+                    {
+                        <span class="tag">@L.T("common.free")</span>
+                    }
+                    <h3>@r.NameIn(L.IsRtl)</h3>
+                    @if (!string.IsNullOrWhiteSpace(r.DescriptionIn(L.IsRtl)))
+                    {
+                        <p>@r.DescriptionIn(L.IsRtl)</p>
+                    }
+                    <p class="phone-number"><bdi>@r.Phone</bdi></p>
+                    @if (!string.IsNullOrWhiteSpace(r.PhoneHref))
+                    {
+                        <a class="btn btn-call" href="tel:@r.PhoneHref">📞 @L.T("common.callnow")</a>
+                    }
+                </div>
+            }
+        </div>
+    }
+
+    <h2>@L.T("hosp.hospitals")</h2>
+    <form method="get" class="filters">
+        <input type="search" name="q" value="@Model.Q" placeholder="@L.T("hosp.search.ph")" aria-label="@L.T("common.search")" />
+        <select name="city" aria-label="Governorate" data-autosubmit>
+            <option value="">@L.T("hosp.allgov")</option>
+            @foreach (var c in Model.Cities)
+            {
+                <option value="@c" selected="@(Model.City == c)">@L.Tx("gov." + c, c)</option>
+            }
+        </select>
+        <button class="btn" type="submit">@L.T("common.search")</button>
+        @if (!string.IsNullOrWhiteSpace(Model.Q) || !string.IsNullOrWhiteSpace(Model.City))
+        {
+            <a class="btn btn-outline" asp-page="Hospitals">@L.T("common.clear")</a>
+        }
+    </form>
+
+    @if (Model.Hospitals.Count == 0)
+    {
+        <p class="lead">@L.T("hosp.none")</p>
+    }
+    else
+    {
+        <p class="meta">@Model.Hospitals.Count @L.T("hosp.found")</p>
+        <div class="cards">
+            @foreach (var r in Model.Hospitals)
+            {
+                <div class="card">
+                    <span class="tag">@L.T("type.Hospital")</span>
+                    @if (r.Is24Hours)
+                    {
+                        <span class="tag">@L.T("common.24h")</span>
+                    }
+                    @if (r.IsFree)
+                    {
+                        <span class="tag">@L.T("common.free")</span>
+                    }
+                    <h3>@r.NameIn(L.IsRtl)</h3>
+                    @if (!string.IsNullOrWhiteSpace(r.DescriptionIn(L.IsRtl)))
+                    {
+                        <p>@r.DescriptionIn(L.IsRtl)</p>
+                    }
+                    @if (!string.IsNullOrWhiteSpace(r.City) || !string.IsNullOrWhiteSpace(r.AddressIn(L.IsRtl)))
+                    {
+                        <p class="meta">📍 @(string.IsNullOrWhiteSpace(r.City) ? "" : L.Tx("gov." + r.City, r.City))@(string.IsNullOrWhiteSpace(r.AddressIn(L.IsRtl)) ? "" : " · " + r.AddressIn(L.IsRtl))</p>
+                    }
+                    @if (!string.IsNullOrWhiteSpace(r.Phone))
+                    {
+                        <p class="phone-number"><bdi>@r.Phone</bdi></p>
+                        <a class="btn btn-call" href="tel:@r.PhoneHref">📞 @L.T("common.callnow")</a>
+                    }
+                    else
+                    {
+                        <p class="meta">@L.T("hosp.nophone1") <strong>16328</strong> @L.T("hosp.nophone2")</p>
+                    }
+                    @if (!string.IsNullOrWhiteSpace(r.Website))
+                    {
+                        <p><a href="@r.Website" target="_blank" rel="noopener noreferrer">@L.T("common.website") @L.Next</a></p>
+                    }
+                    @if (r.VerifiedOn != null)
+                    {
+                        <p class="meta">@L.T("common.verified") @r.VerifiedOn.Value.ToString("MMM yyyy", L.Culture)</p>
+                    }
+                    else
+                    {
+                        <p class="meta">@L.T("common.notverified")</p>
+                    }
+                </div>
+            }
+        </div>
+    }
+
+    <p class="notice">@L.T("hosp.notice1") <strong>16328</strong>.</p>
+</section>

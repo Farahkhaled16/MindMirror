@@ -1,0 +1,47 @@
+﻿@page
+@inject IConfiguration Config
+@{
+    ViewData["Title"] = L.T("nav.help");
+    var mhLine = Config["Crisis:MentalHealthLine"];
+}
+
+<section class="page">
+    <h1>@L.T("nav.help")</h1>
+    <p>@L.T("help.intro")</p>
+
+    <div class="cards">
+        <div class="card urgent">
+            <div class="icon">🚨</div>
+            <h3>@L.T("help.urgent.title")</h3>
+            <p>@L.T("help.urgent.text1") <strong>@Config["Crisis:Emergency"]</strong>@L.T("help.urgent.text2")</p>
+        </div>
+
+        @if (!string.IsNullOrWhiteSpace(mhLine))
+        {
+            <div class="card">
+                <div class="icon">📞</div>
+                <h3>@L.T("help.hotline.title")</h3>
+                <p><strong><bdi>@mhLine</bdi></strong></p>
+            </div>
+        }
+
+        <div class="card">
+            <div class="icon">🏥</div>
+            <h3>@L.T("help.hospitals.title")</h3>
+            <p>@L.T("help.hospitals.text")</p>
+            <a asp-page="/Hospitals">@L.T("card.hospitals.link") @L.Next</a>
+        </div>
+
+        <div class="card">
+            <div class="icon">🩺</div>
+            <h3>@L.T("help.pro.title")</h3>
+            <p>@L.T("help.pro.text")</p>
+        </div>
+
+        <div class="card">
+            <div class="icon">💬</div>
+            <h3>@L.T("help.trust.title")</h3>
+            <p>@L.T("help.trust.text")</p>
+        </div>
+    </div>
+</section>

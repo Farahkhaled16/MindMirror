@@ -1,0 +1,73 @@
+﻿@page
+@model ResourcesModel
+@{
+    ViewData["Title"] = L.T("res.title");
+}
+
+<section class="page">
+    <h1>@L.T("res.title")</h1>
+    <p class="lead">@L.T("res.lead")</p>
+
+    <form method="get" class="filters">
+        <select name="type" aria-label="Type" data-autosubmit>
+            <option value="">@L.T("res.alltypes")</option>
+            @foreach (var t in ResourceTypes.All)
+            {
+                <option value="@t" selected="@(Model.Type == t)">@L.Tx("type." + t, t)</option>
+            }
+        </select>
+        <select name="city" aria-label="City" data-autosubmit>
+            <option value="">@L.T("res.allcities")</option>
+            @foreach (var c in Model.Cities)
+            {
+                <option value="@c" selected="@(Model.City == c)">@L.Tx("gov." + c, c)</option>
+            }
+        </select>
+        <button class="btn" type="submit">@L.T("common.filter")</button>
+    </form>
+
+    @if (Model.Items.Count == 0)
+    {
+        <p class="lead">@L.T("res.empty1") <a asp-page="/Help">@L.T("nav.help")</a>.</p>
+    }
+    else
+    {
+        <div class="cards">
+            @foreach (var r in Model.Items)
+            {
+                <div class="card">
+                    <span class="tag">@L.Tx("type." + r.Type, r.Type)</span>
+                    @if (r.Is24Hours)
+                    {
+                        <span class="tag">@L.T("common.24h")</span>
+                    }
+                    @if (r.IsFree)
+                    {
+                        <span class="tag">@L.T("common.free")</span>
+                    }
+                    <h3>@r.NameIn(L.IsRtl)</h3>
+                    @if (!string.IsNullOrWhiteSpace(r.DescriptionIn(L.IsRtl)))
+                    {
+                        <p>@r.DescriptionIn(L.IsRtl)</p>
+                    }
+                    @if (!string.IsNullOrWhiteSpace(r.City) || !string.IsNullOrWhiteSpace(r.AddressIn(L.IsRtl)))
+                    {
+                        <p class="meta">📍 @(string.IsNullOrWhiteSpace(r.City) ? "" : L.Tx("gov." + r.City, r.City))@(string.IsNullOrWhiteSpace(r.AddressIn(L.IsRtl)) ? "" : " · " + r.AddressIn(L.IsRtl))</p>
+                    }
+                    @if (!string.IsNullOrWhiteSpace(r.Phone))
+                    {
+                        <p><a href="tel:@r.PhoneHref">📞 <bdi>@r.Phone</bdi></a></p>
+                    }
+                    @if (!string.IsNullOrWhiteSpace(r.Website))
+                    {
+                        <p><a href="@r.Website" target="_blank" rel="noopener noreferrer">@L.T("common.website") @L.Next</a></p>
+                    }
+                    @if (r.VerifiedOn != null)
+                    {
+                        <p class="meta">@L.T("common.verified") @r.VerifiedOn.Value.ToString("MMM yyyy", L.Culture)</p>
+                    }
+                </div>
+            }
+        </div>
+    }
+</section>

@@ -1,0 +1,45 @@
+﻿@page
+@{
+    ViewData["Title"] = L.T("journal.title");
+}
+
+<section class="page narrow wide">
+    <h1>@L.T("journal.title")</h1>
+    <p class="notice">
+        @if (L.IsRtl)
+        {
+            <text>تُحفظ إدخالاتك <strong>في هذا المتصفح فقط</strong> وعلى هذا الجهاز. نحن لا نستقبلها أبداً. وإذا مسحت بيانات المتصفح فستُحذف.</text>
+        }
+        else
+        {
+            <text>Your entries are saved <strong>only in this browser</strong> on this device. We never receive them. If you clear your browser data, they will be deleted.</text>
+        }
+    </p>
+
+    <form id="journal-form" class="form-card">
+        <p><strong>@L.T("journal.how")</strong></p>
+        <div class="mood-picker">
+            <label><input type="radio" name="mood" value="1" /> 😞</label>
+            <label><input type="radio" name="mood" value="2" /> 😕</label>
+            <label><input type="radio" name="mood" value="3" /> 😐</label>
+            <label><input type="radio" name="mood" value="4" /> 🙂</label>
+            <label><input type="radio" name="mood" value="5" /> 😄</label>
+        </div>
+
+        <label for="note">@L.T("journal.note")</label>
+        <textarea id="note" maxlength="500" rows="3" placeholder="@L.T("journal.note.ph")"></textarea>
+
+        <button class="btn" type="submit">@L.T("journal.save")</button>
+        <p id="journal-error" class="result-error" hidden></p>
+    </form>
+
+    <div id="chart" class="chart" hidden></div>
+    <div id="summary" class="notice" hidden></div>
+    <ul id="entries" class="entries"></ul>
+    <button id="clear-all" class="btn btn-outline" type="button" hidden>@L.T("journal.clearall")</button>
+</section>
+
+@section Scripts {
+    <script src="~/js/journal.js"></script>
+    <script src="~/js/journal-chart.js"></script>
+}

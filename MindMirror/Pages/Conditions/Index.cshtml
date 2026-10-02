@@ -1,0 +1,32 @@
+﻿@page
+@{
+    ViewData["Title"] = L.T("cond.title");
+    ViewData["Description"] = L.T("cond.lead");
+}
+
+<section class="page">
+    <h1>@L.T("cond.title")</h1>
+    <p class="lead">@L.T("cond.lead")</p>
+    <p class="notice">@L.T("cond.notice")</p>
+
+    <div class="filters">
+        <input type="search" id="cond-search" placeholder="@L.T("cond.search.ph")" aria-label="@L.T("cond.search.ph")" />
+    </div>
+    <p id="no-match" class="lead" hidden>@L.T("cond.nomatch")</p>
+
+    <div class="cards">
+        @foreach (var c in ConditionData.All.Select(x => ConditionDataAr.Localize(x, L.IsRtl)))
+        {
+            <div class="card @(c.Urgent ? "urgent" : "")" data-search="@(c.Name + " " + c.Summary)">
+                <div class="icon">@c.Icon</div>
+                <h3>@c.Name</h3>
+                <p>@c.Summary</p>
+                <a asp-page="/Conditions/Details" asp-route-slug="@c.Slug">@L.T("cond.learn") @L.Next</a>
+            </div>
+        }
+    </div>
+</section>
+
+@section Scripts {
+    <script src="~/js/conditions.js"></script>
+}

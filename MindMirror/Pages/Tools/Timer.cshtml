@@ -1,0 +1,24 @@
+﻿@page
+@{
+    ViewData["Title"] = L.T("timer.title");
+}
+
+<section class="page narrow wide center">
+    <h1>@L.T("timer.title")</h1>
+    <p class="lead">@L.T("timer.lead")</p>
+
+    <select id="minutes" class="timer-select" aria-label="Minutes">
+        <option value="1">@L.T("timer.1")</option>
+        <option value="3">@L.T("timer.3")</option>
+        <option value="5" selected>@L.T("timer.5")</option>
+        <option value="10">@L.T("timer.10")</option>
+    </select>
+
+    <p id="clock" class="clock" dir="ltr" aria-live="off">05:00</p>
+    <p id="timer-msg" class="phase" hidden>@L.T("timer.done")</p>
+    <button id="timer-btn" class="btn" type="button">@L.T("common.start")</button>
+</section>
+
+@section Scripts {
+    <script src="~/js/timer.js"></script>
+}

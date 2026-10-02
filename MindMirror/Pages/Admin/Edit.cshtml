@@ -1,0 +1,38 @@
+﻿@page "{id:int?}"
+@model EditModel
+@{
+    var isNew = Model.Article.Id == 0;
+    ViewData["Title"] = isNew ? "New article" : "Edit article";
+}
+
+<section class="page narrow wide">
+    <a asp-page="Index">&larr; Back to admin</a>
+    <h1>@ViewData["Title"]</h1>
+
+    <form method="post" class="form-card">
+        <div asp-validation-summary="All" class="alert"></div>
+        <input type="hidden" asp-for="Article.Id" />
+
+        <label asp-for="Article.Title">Title</label>
+        <input asp-for="Article.Title" />
+
+        <label asp-for="Article.Summary">Short summary</label>
+        <input asp-for="Article.Summary" />
+        <label asp-for="Article.TitleAr">Title (Arabic, optional)</label>
+        <input asp-for="Article.TitleAr" dir="rtl" />
+
+        <label asp-for="Article.SummaryAr">Short summary (Arabic, optional)</label>
+        <input asp-for="Article.SummaryAr" dir="rtl" />
+
+        <label asp-for="Article.ContentAr">Content (Arabic, optional)</label>
+        <textarea asp-for="Article.ContentAr" rows="14" dir="rtl"></textarea>
+
+        <label asp-for="Article.Category">Category</label>
+        <select asp-for="Article.Category" asp-items="@(new SelectList(ArticleCategories.All))"></select>
+
+        <label asp-for="Article.Content">Content</label>
+        <textarea asp-for="Article.Content" rows="14"></textarea>
+
+        <button class="btn" type="submit">@(isNew ? "Publish" : "Save changes")</button>
+    </form>
+</section>

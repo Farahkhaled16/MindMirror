@@ -1,0 +1,50 @@
+﻿@page
+@{
+    ViewData["Title"] = L.T("relax.title");
+}
+
+<section class="page narrow wide center">
+    <h1>@L.T("relax.title")</h1>
+    <p class="lead">@L.T("relax.lead")</p>
+    <p class="notice">@L.T("relax.notice")</p>
+
+    <div class="guide-card" data-guide>
+        @if (L.IsRtl)
+        {
+            <ol class="guide-steps">
+                <li><span class="big">1</span><p>اجلس أو استلقِ بارتياح. خذ 3 أنفاس بطيئة.</p></li>
+                <li><span class="big">🤲</span><p><strong>اليدان:</strong> اقبض يديك، ثم أبقِهما مشدودتين، ثم أرخِهما.</p></li>
+                <li><span class="big">💪</span><p><strong>الذراعان:</strong> اثنِ مرفقيك وشُدّ الذراعين، ثم أرخِهما.</p></li>
+                <li><span class="big">🧍</span><p><strong>الكتفان:</strong> ارفعهما نحو أذنيك، ثم أنزلهما.</p></li>
+                <li><span class="big">🙂</span><p><strong>الوجه:</strong> اعقد وجهك برفق، ثم أرخِه.</p></li>
+                <li><span class="big">🫁</span><p><strong>البطن:</strong> شُدّ بطنك، ثم أرخِه.</p></li>
+                <li><span class="big">🦵</span><p><strong>الساقان:</strong> اضغط ساقيك معاً، ثم أرخِهما.</p></li>
+                <li><span class="big">🦶</span><p><strong>القدمان:</strong> اثنِ أصابع قدميك، ثم أرخِها.</p></li>
+                <li><span class="big">💜</span><p>تنفّس ببطء ولاحظ جسمك كله يزداد ثقلاً وهدوءاً.</p></li>
+            </ol>
+        }
+        else
+        {
+            <ol class="guide-steps">
+                <li><span class="big">1</span><p>Sit or lie comfortably. Take 3 slow breaths.</p></li>
+                <li><span class="big">🤲</span><p><strong>Hands:</strong> make fists, hold, then release.</p></li>
+                <li><span class="big">💪</span><p><strong>Arms:</strong> bend your elbows and tighten, hold, then release.</p></li>
+                <li><span class="big">🧍</span><p><strong>Shoulders:</strong> lift them toward your ears, hold, then drop.</p></li>
+                <li><span class="big">🙂</span><p><strong>Face:</strong> scrunch your face gently, hold, then soften.</p></li>
+                <li><span class="big">🫁</span><p><strong>Stomach:</strong> tighten your belly, hold, then release.</p></li>
+                <li><span class="big">🦵</span><p><strong>Legs:</strong> press your legs together, hold, then let go.</p></li>
+                <li><span class="big">🦶</span><p><strong>Feet:</strong> curl your toes, hold, then release.</p></li>
+                <li><span class="big">💜</span><p>Breathe slowly and notice your whole body feeling heavier and calmer.</p></li>
+            </ol>
+        }
+        <p class="meta" data-guide-progress></p>
+        <div class="guide-actions">
+            <button type="button" class="btn btn-outline" data-guide-prev>@L.T("guide.back")</button>
+            <button type="button" class="btn" data-guide-next>@L.T("guide.next")</button>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script src="~/js/guide.js"></script>
+}

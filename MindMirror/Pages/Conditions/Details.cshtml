@@ -1,0 +1,76 @@
+﻿@page "/conditions/{slug}"
+@model DetailsModel
+@inject IConfiguration Config
+@{
+    ViewData["Title"] = Model.Item.Name;
+    ViewData["Description"] = Model.Item.Summary;
+    var c = Model.Item;
+}
+
+<section class="page narrow wide condition">
+    <a asp-page="/Conditions/Index">@L.Back @L.T("cond.all")</a>
+    <h1>@c.Icon @c.Name</h1>
+    <p class="lead">@c.Summary</p>
+
+    @if (c.Urgent)
+    {
+        <div class="crisis-note">
+            @L.T("cond.urgent1") <strong>@Config["Crisis:Emergency"]</strong>.
+            @L.T("cond.urgent2")
+        </div>
+    }
+
+    <div class="cond-block">
+        <h2>@L.T("cond.what")</h2>
+        <p>@c.Overview</p>
+    </div>
+
+    <div class="cond-block">
+        <h2>@L.T("cond.signs")</h2>
+        <ul>@foreach (var s in c.Signs) {
+        <li>@s</li>
+                }
+</ul>
+    </div>
+
+    <div class="cond-block">
+        <h2>@L.T("cond.causes")</h2>
+        <ul>@foreach (var s in c.Causes) {
+        <li>@s</li>
+                }
+</ul>
+    </div>
+
+    <div class="cond-block">
+        <h2>@L.T("cond.treatment")</h2>
+        <ul>@foreach (var s in c.Treatment) {
+        <li>@s</li>
+                }
+</ul>
+    </div>
+
+    <div class="cond-block">
+        <h2>@L.T("cond.selfhelp")</h2>
+        <ul>@foreach (var s in c.SelfHelp) {
+        <li>@s</li>
+                }
+</ul>
+    </div>
+
+    <div class="cond-block">
+        <h2>@L.T("cond.support")</h2>
+        <ul>@foreach (var s in c.Support) {
+        <li>@s</li>
+                }
+</ul>
+    </div>
+
+    <div class="cond-block help-box">
+        <h2>@L.T("cond.seek")</h2>
+        <p>@c.SeekHelp</p>
+        <a class="btn" asp-page="/Help">@L.T("nav.help")</a>
+        <button type="button" class="btn btn-outline no-print" data-print>@L.T("cond.print")</button>
+    </div>
+
+    <p class="notice">@L.T("cond.footer")</p>
+</section>

@@ -1,0 +1,33 @@
+﻿@page
+@model LoginModel
+@{
+    ViewData["Title"] = "Admin login";
+}
+
+<section class="page narrow">
+    <a asp-page="/Index">&larr; Back to site</a>
+    <h1>Admin login</h1>
+    <p class="lead">Sign in to manage articles.</p>
+
+    <form method="post" class="form-card" autocomplete="on">
+        <div asp-validation-summary="ModelOnly" class="alert" role="alert"></div>
+        <input type="hidden" asp-for="ReturnUrl" />
+
+        <label asp-for="Username">Username</label>
+        <input asp-for="Username" autocomplete="username" autofocus />
+        <span asp-validation-for="Username" class="field-validation-error"></span>
+
+        <label asp-for="Password">Password</label>
+        <div class="password-wrap">
+            <input asp-for="Password" id="password" autocomplete="current-password" />
+            <button type="button" id="toggle-password" class="show-btn" aria-label="Show password">Show</button>
+        </div>
+        <span asp-validation-for="Password" class="field-validation-error"></span>
+
+        <button class="btn" type="submit">Sign in</button>
+    </form>
+</section>
+
+@section Scripts {
+    <script src="~/js/login.js"></script>
+}

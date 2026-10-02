@@ -1,0 +1,56 @@
+﻿@page
+@model ArticlesModel
+@{
+    ViewData["Title"] = L.T("nav.articles");
+}
+
+<section class="page">
+    <h1>@L.T("nav.articles")</h1>
+
+    <form method="get" class="filters">
+        <input type="search" name="q" value="@Model.Q" placeholder="@L.T("articles.search.ph")" aria-label="@L.T("common.search")" />
+        <select name="category" aria-label="@L.T("articles.allcat")" data-autosubmit>
+            <option value="">@L.T("articles.allcat")</option>
+            @foreach (var c in ArticleCategories.All)
+            {
+                <option value="@c" selected="@(Model.Category == c)">@L.T("cat." + c)</option>
+            }
+        </select>
+        <button class="btn" type="submit">@L.T("common.search")</button>
+    </form>
+
+    @if (Model.Articles.Count == 0)
+    {
+        <p class="lead">@L.T("articles.empty")</p>
+    }
+    else
+    {
+        <div class="cards">
+            @foreach (var a in Model.Articles)
+            {
+                <div class="card">
+                    <span class="tag">@L.Tx("cat." + a.Category, a.Category)</span>
+                    <h3>@a.TitleIn(L.IsRtl)</h3>
+                    <p>@a.SummaryIn(L.IsRtl)</p>
+                    <p class="meta">@a.ReadingMinutesIn(L.IsRtl) @L.T("common.minread")</p>
+                    <a asp-page="/ArticleDetails" asp-route-id="@a.Id">@L.T("common.readmore") @L.Next</a>
+                </div>
+            }
+        </div>
+    }
+
+    @if (Model.TotalPages > 1)
+    {
+        <nav class="pager" aria-label="Pages">
+            @if (Model.P > 1)
+            {
+                <a asp-page="Articles" asp-route-p="@(Model.P - 1)" asp-route-q="@Model.Q" asp-route-category="@Model.Category">@L.Back @L.T("pager.prev")</a>
+            }
+            <span>@L.T("pager.page") @Model.P @L.T("pager.of") @Model.TotalPages</span>
+            @if (Model.P < Model.TotalPages)
+            {
+                <a asp-page="Articles" asp-route-p="@(Model.P + 1)" asp-route-q="@Model.Q" asp-route-category="@Model.Category">@L.T("pager.next") @L.Next</a>
+            }
+        </nav>
+    }
+</section>

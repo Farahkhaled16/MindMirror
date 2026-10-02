@@ -1,0 +1,18 @@
+﻿@page
+@{
+    ViewData["Title"] = L.T("nav.toolkit");
+}
+
+<section class="page">
+    <h1>@L.T("nav.toolkit")</h1>
+    <p class="lead">@L.T("tools.lead")</p>
+
+    <div class="cards">
+        <div class="card"><div class="icon">🌿</div><h3>@L.T("tools.breathe.t")</h3><p>@L.T("tools.breathe.d")</p><a asp-page="/Tools/Breathe">@L.T("tools.open") @L.Next</a></div>
+        <div class="card"><div class="icon">👀</div><h3>@L.T("tools.ground.t")</h3><p>@L.T("tools.ground.d")</p><a asp-page="/Tools/Grounding">@L.T("tools.open") @L.Next</a></div>
+        <div class="card"><div class="icon">💆</div><h3>@L.T("tools.relax.t")</h3><p>@L.T("tools.relax.d")</p><a asp-page="/Tools/Relax">@L.T("tools.open") @L.Next</a></div>
+        <div class="card"><div class="icon">⏳</div><h3>@L.T("tools.timer.t")</h3><p>@L.T("tools.timer.d")</p><a asp-page="/Tools/Timer">@L.T("tools.open") @L.Next</a></div>
+        <div class="card"><div class="icon">📓</div><h3>@L.T("tools.journal.t")</h3><p>@L.T("tools.journal.d")</p><a asp-page="/Tools/Journal">@L.T("tools.open") @L.Next</a></div>
+        <div class="card"><div class="icon">🛟</div><h3>@L.T("tools.plan.t")</h3><p>@L.T("tools.plan.d")</p><a asp-page="/Tools/SafetyPlan">@L.T("tools.open") @L.Next</a></div>
+    </div>
+</section>

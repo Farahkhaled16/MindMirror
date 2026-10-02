@@ -1,0 +1,35 @@
+﻿@page
+@model ResourceListModel
+@{
+    ViewData["Title"] = "Manage resources";
+}
+
+<section class="page">
+    <div class="admin-bar">
+        <h1>Manage resources</h1>
+        <div class="admin-actions">
+            <a class="btn" asp-page="ResourceEdit">+ New resource</a>
+            <a class="btn btn-outline" asp-page="Index">Articles</a>
+        </div>
+    </div>
+
+    <table class="table">
+        <thead><tr><th>Name</th><th>Type</th><th>City</th><th></th></tr></thead>
+        <tbody>
+            @foreach (var r in Model.Items)
+            {
+                <tr>
+                    <td>@r.Name</td>
+                    <td>@r.Type</td>
+                    <td>@r.City</td>
+                    <td class="row-actions">
+                        <a asp-page="ResourceEdit" asp-route-id="@r.Id">Edit</a>
+                        <form method="post" asp-page-handler="Delete" asp-route-id="@r.Id" data-confirm="Delete this resource?">
+                            <button class="link-danger" type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</section>

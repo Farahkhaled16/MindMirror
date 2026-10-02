@@ -1,0 +1,21 @@
+﻿@page
+@{
+    ViewData["Title"] = L.T("breathe.title");
+}
+
+<section class="page narrow wide center">
+    <h1>@L.T("breathe.title")</h1>
+    <p class="lead">@L.T("breathe.lead")</p>
+
+    <div class="breath-stage">
+        <div id="circle" class="circle"></div>
+    </div>
+    <p id="phase" class="phase">@L.T("common.ready")</p>
+    <button id="breath-btn" class="btn" type="button">@L.T("common.start")</button>
+
+    <p class="notice">@L.T("breathe.notice")</p>
+</section>
+
+@section Scripts {
+    <script src="~/js/breathe.js"></script>
+}

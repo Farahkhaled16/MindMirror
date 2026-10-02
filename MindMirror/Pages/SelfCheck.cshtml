@@ -1,0 +1,43 @@
+﻿@page
+@model SelfCheckModel
+@{
+    ViewData["Title"] = L.T("nav.selfcheck");
+}
+
+<section class="page narrow wide">
+    <h1>@L.T("nav.selfcheck")</h1>
+
+    <div class="tabs">
+        <a class="@(Model.Test == "phq9" ? "tab active" : "tab")" asp-page="SelfCheck" asp-route-test="phq9">@L.T("sc.phq9")</a>
+        <a class="@(Model.Test == "gad7" ? "tab active" : "tab")" asp-page="SelfCheck" asp-route-test="gad7">@L.T("sc.gad7")</a>
+    </div>
+
+    <p class="notice">
+        @L.T("sc.notice1") <strong>@L.T("sc.notice.bold")</strong> @L.T("sc.notice2")
+    </p>
+
+    <form id="check-form" data-test="@Model.Test" data-total="@Model.Questions.Length">
+        <p class="lead">@L.T("sc.lead")</p>
+
+        @for (var i = 0; i < Model.Questions.Length; i++)
+        {
+            <fieldset class="question">
+                <legend>@(i + 1). @Model.Questions[i]</legend>
+                <div class="options">
+                    <label><input type="radio" name="q@(i)" value="0" /> @L.T("sc.o0")</label>
+                    <label><input type="radio" name="q@(i)" value="1" /> @L.T("sc.o1")</label>
+                    <label><input type="radio" name="q@(i)" value="2" /> @L.T("sc.o2")</label>
+                    <label><input type="radio" name="q@(i)" value="3" /> @L.T("sc.o3")</label>
+                </div>
+            </fieldset>
+        }
+
+        <button type="submit" class="btn">@L.T("sc.submit")</button>
+    </form>
+
+    <div id="result" class="result" hidden></div>
+</section>
+
+@section Scripts {
+    <script src="~/js/selfcheck.js"></script>
+}

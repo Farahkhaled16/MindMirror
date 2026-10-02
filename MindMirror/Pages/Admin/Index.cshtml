@@ -1,0 +1,45 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Admin";
+}
+
+<section class="page">
+    <div class="admin-bar">
+        <h1>Manage articles</h1>
+        <div class="admin-actions">
+            <a class="btn btn-outline" asp-page="ResourceList">Resources</a>
+            <a class="btn" asp-page="Edit">+ New article</a>
+            <form method="post" asp-page-handler="Logout">
+                <button class="btn btn-outline" type="submit">Log out</button>
+            </form>
+        </div>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Category</th>
+                <th>Published</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var a in Model.Articles)
+            {
+                <tr>
+                    <td>@a.Title</td>
+                    <td>@a.Category</td>
+                    <td>@a.PublishedAt.ToString("MMM d, yyyy")</td>
+                    <td class="row-actions">
+                        <a asp-page="Edit" asp-route-id="@a.Id">Edit</a>
+                        <form method="post" asp-page-handler="Delete" asp-route-id="@a.Id" data-confirm="Delete this article? This cannot be undone.">
+                            <button class="link-danger" type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</section>

@@ -1,0 +1,35 @@
+﻿@page "{id:int}"
+@model ArticleDetailsModel
+@{
+    ViewData["Title"] = Model.Article.TitleIn(L.IsRtl);
+    ViewData["Description"] = Model.Article.SummaryIn(L.IsRtl);
+}
+
+<section class="page article">
+    <a asp-page="/Articles">@L.Back @L.T("art.back")</a>
+    <h1>@Model.Article.TitleIn(L.IsRtl)</h1>
+    <p class="date">
+        <span class="tag">@L.Tx("cat." + Model.Article.Category, Model.Article.Category)</span>
+        @Model.Article.PublishedAt.ToString("d MMMM yyyy", L.Culture) · @Model.Article.ReadingMinutesIn(L.IsRtl) @L.T("common.minread")
+    </p>
+    <div class="article-body">@Model.Article.ContentIn(L.IsRtl)</div>
+
+    <p class="notice">
+        @L.T("art.notice1") <a asp-page="/Help">@L.T("nav.help")</a>.
+    </p>
+
+    @if (Model.Related.Count > 0)
+    {
+        <h2>@L.T("art.related")</h2>
+        <div class="cards">
+            @foreach (var r in Model.Related)
+            {
+                <div class="card">
+                    <h3>@r.TitleIn(L.IsRtl)</h3>
+                    <p>@r.SummaryIn(L.IsRtl)</p>
+                    <a asp-page="/ArticleDetails" asp-route-id="@r.Id">@L.T("common.readmore") @L.Next</a>
+                </div>
+            }
+        </div>
+    }
+</section>

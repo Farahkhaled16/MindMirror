@@ -1,0 +1,56 @@
+﻿@page
+@inject IConfiguration Config
+@{
+    ViewData["Title"] = L.T("plan.title");
+}
+
+<section class="page narrow wide">
+    <h1>@L.T("plan.title")</h1>
+    <p class="lead">@L.T("plan.lead")</p>
+
+    <p class="notice no-print">
+        @if (L.IsRtl)
+        {
+            <text>تُحفظ هذه الخطة <strong>في هذا المتصفح فقط</strong>. إذا كنت تشارك هذا الجهاز مع غيرك فاستخدم زر «مسح» بعد الانتهاء. ويمكنك أيضاً طباعتها أو أخذ لقطة شاشة. وإذا كنت في خطر فوري فاتصل بـ <strong>@Config["Crisis:Emergency"]</strong> الآن.</text>
+        }
+        else
+        {
+            <text>This is saved <strong>only in this browser</strong>. If you share this device, use "Clear" afterwards. You can also print it or take a screenshot. If you are in immediate danger, call <strong>@Config["Crisis:Emergency"]</strong> now.</text>
+        }
+    </p>
+
+    <div class="form-card plan" id="plan">
+        <label for="plan-warning">@L.T("plan.1")</label>
+        <textarea id="plan-warning" data-plan rows="3"></textarea>
+
+        <label for="plan-self">@L.T("plan.2")</label>
+        <textarea id="plan-self" data-plan rows="3"></textarea>
+
+        <label for="plan-places">@L.T("plan.3")</label>
+        <textarea id="plan-places" data-plan rows="3"></textarea>
+
+        <label for="plan-people">@L.T("plan.4")</label>
+        <textarea id="plan-people" data-plan rows="3"></textarea>
+
+        <label for="plan-pro">@L.T("plan.5")</label>
+        <textarea id="plan-pro" data-plan rows="3"></textarea>
+
+        <label for="plan-env">@L.T("plan.6")</label>
+        <textarea id="plan-env" data-plan rows="3"></textarea>
+
+        <label for="plan-reason">@L.T("plan.7")</label>
+        <textarea id="plan-reason" data-plan rows="3"></textarea>
+
+        <p class="plan-emergency">@L.T("plan.emergency") <strong>@Config["Crisis:Emergency"]</strong></p>
+    </div>
+
+    <div class="guide-actions no-print">
+        <button id="plan-print" class="btn" type="button">@L.T("plan.print")</button>
+        <button id="plan-clear" class="btn btn-outline" type="button">@L.T("plan.clear")</button>
+    </div>
+    <p id="plan-saved" class="meta no-print" hidden>@L.T("plan.saved")</p>
+</section>
+
+@section Scripts {
+    <script src="~/js/safetyplan.js"></script>
+}

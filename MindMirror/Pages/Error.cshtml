@@ -1,0 +1,12 @@
+﻿@page "{code:int?}"
+@{
+    int.TryParse(ViewContext.RouteData.Values["code"]?.ToString(), out var code);
+    var notFound = code == 404;
+    ViewData["Title"] = notFound ? L.T("error.404.title") : L.T("error.title");
+}
+
+<section class="page narrow center">
+    <h1>@(notFound ? L.T("error.404.title") : L.T("error.title"))</h1>
+    <p>@(notFound ? L.T("error.404.text") : L.T("error.text"))</p>
+    <a class="btn" asp-page="/Index">@L.T("error.home")</a>
+</section>

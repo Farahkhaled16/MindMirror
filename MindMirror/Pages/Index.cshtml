@@ -1,0 +1,65 @@
+﻿@page
+@{
+    ViewData["Title"] = L.T("nav.home");
+    var tip = L.T("tip." + (DateTime.UtcNow.DayOfYear % 8 + 1));
+}
+
+<section class="hero">
+    <span class="eyebrow">@L.T("home.eyebrow")</span>
+    <h1>@L.T("home.title1")<br />@L.T("home.title2")</h1>
+    <p>@L.T("home.subtitle")</p>
+    <div class="hero-actions">
+        <a class="btn" asp-page="/Help">@L.T("home.needhelp")</a>
+        <a class="btn btn-outline" asp-page="/Articles">@L.T("home.readarticles")</a>
+    </div>
+</section>
+
+<section class="tip">
+    <span class="tag">@L.T("tip.label")</span>
+    <p>@tip</p>
+</section>
+
+<section class="cards">
+    <div class="card">
+        <div class="icon">📖</div>
+        <h3>@L.T("card.articles.title")</h3>
+        <p>@L.T("card.articles.text")</p>
+        <a asp-page="/Articles">@L.T("card.articles.link") @L.Next</a>
+    </div>
+    <div class="card">
+        <div class="icon">🧠</div>
+        <h3>@L.T("card.conditions.title")</h3>
+        <p>@L.T("card.conditions.text")</p>
+        <a asp-page="/Conditions/Index">@L.T("card.conditions.link") @L.Next</a>
+    </div>
+    <div class="card">
+        <div class="icon">🪞</div>
+        <h3>@L.T("card.selfcheck.title")</h3>
+        <p>@L.T("card.selfcheck.text")</p>
+        <a asp-page="/SelfCheck">@L.T("card.selfcheck.link") @L.Next</a>
+    </div>
+    <div class="card">
+        <div class="icon">📓</div>
+        <h3>@L.T("card.journal.title")</h3>
+        <p>@L.T("card.journal.text")</p>
+        <a asp-page="/Tools/Journal">@L.T("card.journal.link") @L.Next</a>
+    </div>
+    <div class="card">
+        <div class="icon">🌿</div>
+        <h3>@L.T("card.breathe.title")</h3>
+        <p>@L.T("card.breathe.text")</p>
+        <a asp-page="/Tools/Breathe">@L.T("card.breathe.link") @L.Next</a>
+    </div>
+    <div class="card">
+        <div class="icon">📞</div>
+        <h3>@L.T("card.hospitals.title")</h3>
+        <p>@L.T("card.hospitals.text")</p>
+        <a asp-page="/Hospitals">@L.T("card.hospitals.link") @L.Next</a>
+    </div>
+    <div class="card">
+        <div class="icon">💜</div>
+        <h3>@L.T("card.help.title")</h3>
+        <p>@L.T("card.help.text")</p>
+        <a asp-page="/Help">@L.T("card.help.link") @L.Next</a>
+    </div>
+</section>

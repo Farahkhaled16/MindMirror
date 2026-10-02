@@ -1,0 +1,45 @@
+﻿@page
+@{
+    ViewData["Title"] = L.T("ground.title");
+}
+
+<section class="page narrow wide center">
+    <h1>@L.T("ground.title")</h1>
+    <p class="lead">@L.T("ground.lead")</p>
+
+    <div class="guide-card" data-guide>
+        @if (L.IsRtl)
+        {
+            <ol class="guide-steps">
+                <li><span class="big">5</span><p>انظر حولك وسمِّ <strong>5 أشياء تراها</strong>.</p></li>
+                <li><span class="big">4</span><p>لاحظ <strong>4 أشياء تشعر بها</strong>: قدماك على الأرض، ملابسك، سطح تلمسه.</p></li>
+                <li><span class="big">3</span><p>أنصت إلى <strong>3 أشياء تسمعها</strong>.</p></li>
+                <li><span class="big">2</span><p>ابحث عن <strong>شيئين تشم رائحتهما</strong>، أو تخيّل رائحتين تحبهما.</p></li>
+                <li><span class="big">1</span><p>سمِّ <strong>شيئاً واحداً تتذوقه</strong>، أو شيئاً جميلاً واحداً في نفسك.</p></li>
+                <li><span class="big">💜</span><p>خذ نفساً بطيئاً واحداً. لقد أحسنت. لاحظ كيف تشعر الآن.</p></li>
+            </ol>
+        }
+        else
+        {
+            <ol class="guide-steps">
+                <li><span class="big">5</span><p>Look around and name <strong>5 things you can see</strong>.</p></li>
+                <li><span class="big">4</span><p>Notice <strong>4 things you can feel</strong>: your feet on the floor, your clothes, a surface.</p></li>
+                <li><span class="big">3</span><p>Listen for <strong>3 things you can hear</strong>.</p></li>
+                <li><span class="big">2</span><p>Find <strong>2 things you can smell</strong>, or imagine 2 smells you like.</p></li>
+                <li><span class="big">1</span><p>Name <strong>1 thing you can taste</strong>, or 1 good thing about yourself.</p></li>
+                <li><span class="big">💜</span><p>Take one slow breath. You did well. Notice how you feel now.</p></li>
+            </ol>
+        }
+        <p class="meta" data-guide-progress></p>
+        <div class="guide-actions">
+            <button type="button" class="btn btn-outline" data-guide-prev>@L.T("guide.back")</button>
+            <button type="button" class="btn" data-guide-next>@L.T("guide.next")</button>
+        </div>
+    </div>
+
+    <p class="notice">@L.T("guide.safe1") <a asp-page="/Help">@L.T("nav.help")</a>.</p>
+</section>
+
+@section Scripts {
+    <script src="~/js/guide.js"></script>
+}
